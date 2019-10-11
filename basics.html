@@ -1,0 +1,2066 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Linux basics</title>
+  <style type="text/css">
+    /* Color Palette Based on Monokai
+
+white       : #fafafa
+light grey  : #efefef
+grey        : #75715e
+dark grey   : #272822
+black       : #191919
+
+light blue  : #66d9ef
+blue        : #1db4d0
+lavender    : #bf79db
+magenta     : #f92672
+light green : #a6e22e
+*/
+
+/* Local Fonts */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/opensans/300.woff2') format('woff2'),
+       url('fonts/opensans/300.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/opensans/400.woff2') format('woff2'),
+       url('fonts/opensans/400.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('fonts/opensans/600.woff2') format('woff2'),
+       url('fonts/opensans/600.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/opensans/700.woff2') format('woff2'),
+       url('fonts/opensans/700.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: url('fonts/opensans/800.woff2') format('woff2'),
+       url('fonts/opensans/800.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: url('fonts/opensans/300i.woff2') format('woff2'),
+       url('fonts/opensans/300i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url('fonts/opensans/400i.woff2') format('woff2'),
+       url('fonts/opensans/400i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 600;
+  src: url('fonts/opensans/600i.woff2') format('woff2'),
+       url('fonts/opensans/600i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: url('fonts/opensans/700i.woff2') format('woff2'),
+       url('fonts/opensans/700i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 800;
+  src: url('fonts/opensans/800i.woff2') format('woff2'),
+       url('fonts/opensans/800i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/merriweather/400.woff2') format('woff2'),
+       url('fonts/merriweather/400.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/merriweather/700.woff2') format('woff2'),
+       url('fonts/merriweather/700.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 900;
+  src: url('fonts/merriweather/900.woff2') format('woff2'),
+       url('fonts/merriweather/900.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 400;
+  src: url('fonts/merriweather/400i.woff2') format('woff2'),
+       url('fonts/merriweather/400i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 700;
+  src: url('fonts/merriweather/700i.woff2') format('woff2'),
+       url('fonts/merriweather/700i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 900;
+  src: url('fonts/merriweather/900i.woff2') format('woff2'),
+       url('fonts/merriweather/900i.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/fira/400.woff2') format('woff2'),
+       url('fonts/fira/400.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/fira/500.woff2') format('woff2'),
+       url('fonts/fira/500.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/fira/700.woff2') format('woff2'),
+       url('fonts/fira/700.woff') format('woff');
+}
+
+/* Theme Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+  color: #fafafa;
+  background-color: #191919;
+}
+
+/* Custom Slide Styles */
+#slide-1 {
+  background: #222 url(wireball.png) center center no-repeat;
+  background-size: cover;
+}
+
+#slide-1 h1 {
+  text-shadow: 1px 2px 4px #191919;
+}
+
+#slide-1 p {
+  text-shadow: 1px 1px 1px #191919;
+}
+
+.center {
+  text-align: center;
+}
+
+img.badge {
+  height: 128px;
+  width: 128px !important;
+  border-radius: 50% !important;
+}
+
+/* Presentation Styles */
+.slide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 100px;
+}
+
+.slide-content {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  font-size: 200%;
+  font-weight: 200;
+  line-height: 1.375;
+  overflow: hidden;
+}
+
+.slide-content img {
+  width: 100%;
+  border-radius: 3px;
+}
+
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.arrow {
+  float: left;
+  height: 0;
+  width: 0;
+  margin-right: 15px;
+  border: 15px solid #272822;
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-right-width: 25px;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-left-width: 0;
+}
+
+.next {
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-right-width: 0;
+  border-bottom-color: transparent;
+  border-left-width: 25px;
+}
+
+.prev:hover {
+  border-right-color: #efefef;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #efefef;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Merriweather', serif;
+}
+
+h1 {
+  margin: 170px 0 0;
+  font-size: 300%;
+  text-align: center;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 5px 0;
+  font-size: 100%;
+  font-weight: 200;
+  text-align: center;
+  line-height: 1.2;
+}
+
+h3 {
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 2px ridge #fafafa;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+blockquote {
+  padding-left: 20px;
+  margin-left: 0;
+  background: #272822;
+  border-left: 5px solid #efefef;
+  border-radius: 0 3px 3px 0;
+}
+
+blockquote p {
+  padding: .5em;
+  color: #efefef;
+}
+
+.left {
+  float: left;
+  width: 48%;
+}
+
+.right {
+  float: right;
+  width: 48%;
+}
+
+.author h1 {
+  margin-bottom: 30px;
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+}
+
+.author h3 {
+  font-size: 95%;
+  font-weight: 100;
+  text-align: center;
+  border: none;
+}
+
+.author h3.twitter::before {
+  content: 'Twitter: ';
+}
+
+.author h3.github::before {
+  content: 'Github: ';
+}
+
+.author h3.email::before {
+  content: 'Email: ';
+}
+
+.author h3.url::before {
+  content: 'Web: ';
+}
+
+a {
+  text-decoration: none;
+  color: #66d9ef;
+}
+
+a:hover {
+  color: #66d9ef;
+  border-bottom: 1px solid #66d9ef;
+}
+
+hr {
+  border: 1px solid #efefef;
+}
+
+pre {
+  font-size: 75%;
+  line-height: 1.3;
+}
+
+table td,
+table th {
+  padding-right: 3em;
+  text-align: left;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  height: 3px;
+  width: 0;
+  background-color: #a6e22e;
+  -webkit-transition: width .15s ease-out;
+     -moz-transition: width .15s ease-out;
+       -o-transition: width .15s ease-out;
+          transition: width .15s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Code Highlighting */
+code {
+  padding: .1em .35em;
+  font-family: 'Fira Mono';
+  color: #fafafa;
+  background-color: #272822;
+  border-radius: 3px;
+}
+
+pre code {
+  display: block;
+  padding: .5em;
+  font-family: 'Fira Mono';
+  font-weight: 400;
+  overflow-y: hidden;
+  background: #272822;
+}
+
+pre .tag,
+pre .tag .title,
+pre .keyword,
+pre .literal,
+pre .change,
+pre .winutils,
+pre .flow,
+pre .lisp .title,
+pre .clojure .built_in,
+pre .nginx .title,
+pre .tex .special {
+  color: #f92672;
+}
+
+pre code {
+  color: #75715e;
+}
+
+pre code .constant {
+  color: #66d9ef;
+}
+
+pre .class .title {
+  color: #fafafa;
+}
+
+pre .attribute,
+pre .symbol,
+pre .symbol .string,
+pre .value,
+pre .regexp {
+  color: #bf79db;
+}
+
+pre .tag .value,
+pre .string,
+pre .subst,
+pre .title,
+pre .haskell .type,
+pre .preprocessor,
+pre .ruby .class .parent,
+pre .built_in,
+pre .sql .aggregate,
+pre .django .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .javadoc,
+pre .django .filter .argument,
+pre .smalltalk .localvars,
+pre .smalltalk .array,
+pre .attr_selector,
+pre .pseudo,
+pre .addition,
+pre .stream,
+pre .envvar,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .prompt {
+  color: #a6e22e;
+}
+
+pre .comment,
+pre .java .annotation,
+pre .python .decorator,
+pre .template_comment,
+pre .pi,
+pre .doctype,
+pre .deletion,
+pre .shebang,
+pre .apache .sqbracket,
+pre .tex .formula {
+  color: #75715e;
+}
+
+pre .keyword,
+pre .literal,
+pre .css .id,
+pre .phpdoc,
+pre .title,
+pre .haskell .type,
+pre .vbscript .built_in,
+pre .sql .aggregate,
+pre .rsl .built_in,
+pre .smalltalk .class,
+pre .diff .header,
+pre .chunk,
+pre .winutils,
+pre .bash .variable,
+pre .apache .tag,
+pre .tex .special,
+pre .request,
+pre .status {
+  /* font-weight: 600; */
+}
+
+pre .coffeescript .javascript,
+pre .javascript .xml,
+pre .tex .formula,
+pre .xml .javascript,
+pre .xml .vbscript,
+pre .xml .css,
+pre .xml .cdata {
+  opacity: .5;
+}
+
+/* Responsiveness */
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 3px;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev,
+  .prev:hover {
+    border-right-color: rgba(135, 135, 135, .5);
+  }
+
+  .next,
+  .next:hover {
+    border-left-color: rgba(135, 135, 135, .5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    overflow: hidden;
+    font-size: 50%;
+  }
+
+  .slide-content {
+    height: 340px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+  }
+
+  body {
+    float: none !important;
+    padding: 0;
+    margin: 0 auto !important;
+    overflow: visible;
+    font-size: 52%;
+    background: none !important;
+    border: 0;
+  }
+
+  .progress,
+  .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+    border: 1px solid #222;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="linux-basics">Linux basics</h1>
+<h2 id="a-quick-look-at-some-common-linux-commands">A quick look at some common linux commands</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="contents">Contents</h3>
+<ul>
+<li>Why?</li>
+<li>Directory structure, file paths and files</li>
+<li>Text manipulation</li>
+<li>Advanced text manipulation</li>
+<li>Connectivity</li>
+<li>Advanced structure / file etc.</li>
+<li>Process / user control / information</li>
+<li>Help / recall</li>
+<li>Environments</li>
+<li>System</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="why-">Why?</h3>
+<p>There are many reasons that you might need to use the linux command line. The main one being that most of the servers that you will be interacting with do not have any other means of input. They run in a &#39;headless&#39; state, where they normally don&#39;t have a keyboard, mouse or monitor plugged into them and the only way to interact is via &#39;ssh&#39;. </p>
+<p>This means we only have a text interface to them. But that&#39;s ok. We can do everything (and more) with just this interface.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files">Directory structure, file paths and files</h3>
+<p>To help demonstrate this, we will look at the commands being executed on the command line alongside a file explore showing a visual representation of what&#39;s happening. </p>
+<p>So, start up a terminal on your local machine and also start up a file explorer on your local machine. Your terminal should start in your home directory. </p>
+<p>By the end of these slides, you should be able to navigate around your home directory in the terminal and see the same locations/files in your file explorer.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files">Directory structure, file paths and files</h3>
+<h4 id="in-this-section-">In this section:</h4>
+<ul>
+<li><code>ls</code></li>
+<li><code>pwd</code></li>
+<li><code>cd</code></li>
+<li>understanding paths</li>
+<li><code>cp</code></li>
+<li><code>mv</code></li>
+<li><code>touch</code></li>
+<li><code>rmdir</code></li>
+<li><code>rm</code></li>
+<li><code>mkdir</code></li>
+<li><code>file</code></li>
+<li>understanding wild cards</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-ls-l-i-s-t">Directory structure, file paths and files : <code>ls</code> - [L]i[s]t</h3>
+<p>This is used to list the contents of a directory. You should have started in your home directory, so this should show you the contents of this. Any files will be listed by name here and should match those shown in your file explorer. The -l swtich will give extra info.</p>
+<pre><code class="lang-bash">&gt; ls
+master.zip
+mefffix_m3_test.actual
+build_codes.log
+</code></pre>
+<pre><code class="lang-bash">&gt; ls -l
+-rw-rw-r--. 1 michaelr michaelr    402 Mar 27 19:51 build_codes.log
+-rw-rw-r--. 1 michaelr michaelr 143335 Feb 16 11:45 master.zip
+-rw-r--r--. 1 michaelr michaelr 176120 Dec 11  2014 mefffix_m3_test.actual
+
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-pwd-p-rint-w-orking-d-irectory">Directory structure, file paths and files : <code>pwd</code> - [P]rint [W]orking [D]irectory</h3>
+<p>Shows the directory you are currently executing commands in.</p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson/git/training/linux/basics
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-cd-c-hange-d-irectory">Directory structure, file paths and files : <code>cd</code> - [C]hange [D]irectory</h3>
+<p>Changes to another directory </p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">cd</span> /home/mrobinson/git/training/
+&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson/git/training
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-paths">Directory structure, file paths and files : Paths</h3>
+<p>There are two types of paths. Relative and absolute. Relative paths are relative to the directory you are in.</p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson
+<span class="hljs-built_in">cd</span> git/training/
+&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson/git/training
+</code></pre>
+<p>Absolute paths are full paths from the very root of the file system and can be used no matter which directory you are in. </p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson/
+<span class="hljs-built_in">cd</span> /home/mrobinson/git/training/
+&gt; <span class="hljs-built_in">pwd</span>
+/home/mrobinson/git/training
+</code></pre>
+<p>Lastly a &quot;.&quot; indicates the current directory. Try <code>ls .</code> for example.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-cp-c-o-p-y">Directory structure, file paths and files : <code>cp</code> - [C]o[p]y</h3>
+<p>Copy a file from one place to another. Full or relative paths can be used. </p>
+<pre><code class="lang-bash">&gt; cp /home/mrobinson/git/training/linux/README /home/mrobinson/git/training/DONTREADME
+&gt; ls
+DONTREADME  linux
+</code></pre>
+<pre><code class="lang-bash">&gt; cp DONTREADME ICANTEVENREAD
+&gt; ls
+DONTREADME  ICANTEVENREAD  linux
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-mv-m-o-v-e">Directory structure, file paths and files : <code>mv</code> - [M]o[v]e</h3>
+<p>This is used to move a file from one place to another. It is also used to rename files (as this is the same as moving the file to a different name, but keeping it&#39;s location the same). </p>
+<pre><code class="lang-bash">mv DONTREADME /tmp/
+&gt; ls
+ICANTEVENREAD  linux
+&gt; ls /tmp/
+basics.html
+DONTREADME
+tmux-947
+</code></pre>
+<pre><code class="lang-bash">&gt; mv ICANTEVENREAD WoopWoopItsTheSoundOfThePolice
+&gt; ls
+linux  WoopWoopItsTheSoundOfThePolice
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-mkdir-m-a-k-e-d-irectory">Directory structure, file paths and files : <code>mkdir</code> - [M]a[k]e [D]irectory</h3>
+<p>This creates a new directory. If we use the -l swtich for ls, we can see it&#39;s directory by looking at the first character, which is a d. If you have colours enabled for your terminal you should also noticed that it&#39;s a different colour. </p>
+<pre><code class="lang-bash">&gt; mkdir SleepIsForTheWeak
+&gt; ls -l 
+total 16
+drwxrwxr-x. 7 michaelr michaelr 1024 Jul 10 09:05 linux
+drwxrwxr-x. 2 michaelr michaelr   80 Jul 10 10:40 SleepIsForTheWeak
+-rw-rw-r--. 1 michaelr michaelr 1003 Jul 10 10:25 WoopWoopItsTheSoundOfThePolice
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-rm-r-e-m-ove">Directory structure, file paths and files : <code>rm</code> - [R]e[m]ove</h3>
+<p>This deletes files. Be careful, they can&#39;t be recovered. If you need to remove a directory you can use the -r (recursive) switch. Again, be careful, this will delete everything in the directory supplied. </p>
+<pre><code class="lang-bash">&gt; rm WoopWoopItsTheSoundOfThePolice 
+&gt; ls
+linux  SleepIsForTheWeak
+&gt; rm SleepIsForTheWeak/
+rm: cannot remove ‘SleepIsForTheWeak/’: Is a directory
+&gt; rm -r SleepIsForTheWeak/
+&gt; ls
+linux
+
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-file-return-the-type-of-file">Directory structure, file paths and files : <code>file</code> - Return the type of file</h3>
+<p>This can be useful if you&#39;re not sure what a file is. It can identify many different file types and show some extra information on them. Files may not always have extensions you recognise or have an extension at all, this command ignores that. </p>
+<pre><code class="lang-bash">&gt; file linux/
+linux/: directory
+&gt; file linux/basics.html 
+linux/basics.html: HTML document, UTF-8 Unicode text, with very long lines
+&gt; file linux/basics/basics.md 
+linux/basics/basics.md: UTF-8 Unicode text, with very long lines
+&gt; file /usr/bin/bash
+/usr/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), <span class="hljs-keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=0x7e60e3500525487556361588a7e2818807f5815a, stripped
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="directory-structure-file-paths-and-files-wild-cards">Directory structure, file paths and files : Wild cards</h3>
+<p>A wildcard is a symbol used to replace or represent one or more characters. Wildcards are typically either an asterisk (*), which represents one or more characters or question mark (?), which represents a single character. This means the same command can be executed on many files at the same time. </p>
+<pre><code class="lang-bash">&gt; ls Q*
+QuoteHandler.cc QuotePublisher.cc QuoteQualifier.cc QuoteSource.cc QuoteUpdate.cc
+QuoteHandler.h  QuotePublisher.h  QuoteQualifier.h  QuoteSource.h  QuoteUpdate.h
+</code></pre>
+<pre><code class="lang-bash">&gt; ls Q*.?
+QuoteHandler.h QuotePublisher.h QuoteQualifier.h QuoteSource.h QuoteUpdate.h
+</code></pre>
+<pre><code class="lang-bash">&gt; ls Q*.??
+QuoteHandler.cc QuotePublisher.cc QuoteQualifier.cc QuoteSource.cc QuoteUpdate.cc
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="text-manipulation">Text manipulation</h3>
+<p>This section will go into some basics on display, storing and redirecting output streams from programs. This allows you to &#39;pipe&#39; or chain various commands together. </p>
+<p>It will then show some examples of common commands that are used to manipulate this data, allowing you to ignore parts of it, search for specific things, subsitute text for other text or maybe split it all up into columns.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="text-manipulation">Text manipulation</h3>
+<h4 id="in-this-section">In this section</h4>
+<ul>
+<li>Input and output</li>
+<li>Redirection</li>
+<li>stdout, stdin and stderr</li>
+<li><code>echo</code></li>
+<li><code>cat</code></li>
+<li><code>head</code></li>
+<li><code>tail</code></li>
+<li><code>less</code></li>
+<li><code>cut</code></li>
+<li><code>grep</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="text-manipulation-input-and-output">Text manipulation : Input and output</h3>
+<p>There are a few different places that programs can get and print data. The standard ones for communication between a keyboard, a program and a display are below, the reasons for the file descriptors will become apparent later:</p>
+<ul>
+<li>stdin - file descriptor 0<ul>
+<li>Standard input, Unless redirected, standard input is expected from the keyboard which started the program.</li>
+</ul>
+</li>
+<li>stdout - file descriptor 1<ul>
+<li>Standard output, Unless redirected, standard output is the text terminal which initiated the program.</li>
+</ul>
+</li>
+<li>stderr - file descriptor 2<ul>
+<li>Standard error, The usual destination is the text terminal which started the program. It is acceptable, and normal, for standard output and standard error to be directed to the same destination.</li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="text-manipulation-redirection">Text manipulation : Redirection</h3>
+<p>Text can be redirected from a command to a file using the <code>&gt;</code> character, or into a command using <code>&lt;</code> and lastly append to a file using <code>&gt;&gt;</code>. This can be used to redirect all the inputs and outputs from the last slide (this is where the file descriptor is used)</p>
+<p>The next few slides will show examples of each</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="text-manipulation-redirection">Text manipulation : Redirection</h3>
+<h4 id="stdout-to-file">stdout to file</h4>
+<p>This will cause the ouput of a program to be written to a file.</p>
+<pre><code class="lang-bash">ls -l &gt; ls-l.txt
+</code></pre>
+<p>Here, a file called <code>ls-l.txt</code> will be created and it will contain what you would see on the screen if you type the command <code>ls -l</code> and execute it.</p>
+<h4 id="stderr-to-file">stderr to file</h4>
+<p>This will cause the stderr ouput of a program to be written to a file.</p>
+<pre><code class="lang-bash">grep da * 2&gt; grep-errors.txt
+</code></pre>
+<p>Here, a file called <code>grep-errors.txt</code> will be created and it will contain what you would see the stderr portion of the output of the <code>grep da *</code> command.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="text-manipulation-redirection">Text manipulation : Redirection</h3>
+<h4 id="stdout-to-stderr">stdout to stderr</h4>
+<p>This will cause the stderr ouput of a program to be written to the same filedescriptor than stdout.</p>
+<pre><code class="lang-bash">grep da * 1&gt;&amp;2 
+</code></pre>
+<p>Here, the stdout portion of the command is sent to stderr, you may notice that in different ways.</p>
+<h4 id="stderr-to-stdout">stderr to stdout</h4>
+<p>This will cause the stderr ouput of a program to be written to the same filedescriptor than stdout.</p>
+<pre><code class="lang-bash">grep * 2&gt;&amp;1
+</code></pre>
+<p>Here, the stderr portion of the command is sent to stdout, if you pipe to less, you&#39;ll see that lines that normally &#39;dissapear&#39; (as they are written to stderr) are being kept now (because they&#39;re on stdout).</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="text-manipulation-redirection">Text manipulation : Redirection</h3>
+<h4 id="stderr-and-stdout-to-file">stderr and stdout to file</h4>
+<p>This will place every output of a program to a file. This is suitable sometimes for cron entries, if you want a command to pass in absolute silence. There are two ways, the first is the full version (note where the redirection is) and the second is the shorthand. </p>
+<pre><code class="lang-bash">grep * &gt; /dev/null 2&gt;&amp;1
+</code></pre>
+<pre><code class="lang-bash">grep * &amp;&gt; /dev/null 
+</code></pre>
+<h4 id="stdin-from-file">stdin from file</h4>
+<p>This is less common and I include it for completeness, though there are scenarios where it&#39;s useful. This will take the the contents of a file and use it in place of standard input. </p>
+<pre><code class="lang-bash">cat &lt; grep-errors.txt
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="text-manipulation-pipes">Text manipulation : Pipes</h3>
+<p>Pipes let you use the output of a program as the input of another one</p>
+<pre><code class="lang-bash">ls -l | grep error
+</code></pre>
+<p>Here, the following happens: first the command ls -l is executed, and it&#39;s output, instead of being printed, is sent (piped) to the grep program, which in turn, prints what it has to. In this example we would be better using wild cards <code>ls -l *error*</code>, but you will see as we go on what other commands can be chained together in this way.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h3 id="text-manipulation-echo">Text manipulation : <code>echo</code></h3>
+<p>Echo will take a string and output it back to standard out. This isn&#39;t particularly useful on command line alone, but can be when you start to write scripts. </p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">echo</span> <span class="hljs-string">"Work is the curse of the drinking classes"</span>
+Work is the curse of the drinking classes
+</code></pre>
+<p>This can be redirected though if you wanted to create a file</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">"Work is the curse of the drinking classes"</span> &gt; quotes.txt
+</code></pre>
+<p>And appended to if required</p>
+<pre><code class="lang-bash">&gt; <span class="hljs-built_in">echo</span> <span class="hljs-string">"I love deadlines. I love the whooshing noise they make as they go by."</span> &gt;&gt; quotes.txt
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="text-manipulation-cat-con-cat-enate">Text manipulation : <code>cat</code> - con[cat]enate</h3>
+<p>Cat, as you have already see, can be used to display the output of a file.</p>
+<pre><code class="lang-bash">&gt; cat quotes.txt
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre>
+<p>Multiple files can be passed to it to display several files one after another</p>
+<pre><code class="lang-bash">cat grep-errors.txt quotes.txt
+</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="text-manipulation-head">Text manipulation : <code>head</code></h3>
+<p>This is similar to cat in that it will display a file, however it will only display the first X lines. The default is 10, but can be changed with -X</p>
+<pre><code class="lang-bash">&gt; head -5 /etc/nsswitch.conf
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># /etc/nsswitch.conf</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># An example Name Service Switch config file. This file should be</span>
+<span class="hljs-comment"># sorted with the most-used services at the beginning.</span>
+</code></pre>
+<h3 id="text-manipulation-tail">Text manipulation : <code>tail</code></h3>
+<p>Unsurprisingly tail does the opposite of head.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="text-manipulation-less">Text manipulation : <code>less</code></h3>
+<p>Less allows you to view the contents of a file and page through at will. Although this could be achieved with cat, less will allow you to scroll, search and page through the file. This could also be acheived with vim or another editor, though less will only load the part of the file you are currently viewing. This is useful if you are looking at a file that is very large as it takes a long time to load the whole thing into memory. </p>
+<p>There are many commands beyond the standard invocation of it, if you want to view them all you can do <code>less --help</code>, otherwise the main useful ones are:</p>
+<ul>
+<li>Up arrow and down arrow - Scroll up and down a line</li>
+<li>Page up and page down - Scroll up and down a full screen</li>
+<li>/ and ? - Search forwards and backwards in the file</li>
+<li>q - quit</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="text-manipulation-cut">Text manipulation : <code>cut</code></h3>
+<p>Cut allows you to extract portion of text from a file by selecting columns. There are a number of useful things you can do with it, though if you get too advanced you should probably be using awk instead. Here are two useful examples:</p>
+<h4 id="select-column-of-characters-using-range">Select Column of Characters using Range</h4>
+<pre><code class="lang-bash">&gt; cut -c21-35 quotes.txt
+the drinking c
+love the whoosh
+</code></pre>
+<h4 id="select-multiple-fields-from-a-file">Select Multiple Fields from a File</h4>
+<p>The -d switch can be used to specify a delimiter, unlike awk, this must be a single character</p>
+<pre><code>&gt; cut -d &#39; &#39; -f4,7,10 quotes.txt
+curse drinking
+I whooshing make
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="text-manipulation-grep">Text manipulation : <code>grep</code></h3>
+<p>In it&#39;s simplist form, grep is used to search for a string in text that it is given. This may be via another command or from a file. </p>
+<h4 id="piped-output">Piped output</h4>
+<pre><code class="lang-bash">&gt; cat quotes.txt | grep the
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre>
+<h4 id="from-a-file">From a file</h4>
+<pre><code>&gt; grep the quotes.txt
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="connectivity">Connectivity</h3>
+<p>This is just a quick intro on connecting to other machines and verifying that there&#39;s nothing wrong with the network. </p>
+<h4 id="what-s-covered">What&#39;s covered</h4>
+<ul>
+<li><code>ssh</code></li>
+<li><code>ping</code></li>
+<li><code>scp</code></li>
+<li><code>telnet</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h3 id="connectivity-ssh-secure-shell">Connectivity : <code>ssh</code> - secure shell</h3>
+<p>This is your main method of connecting to another machine via the command line. This (once connected) will allow you to execute commands on the remote machine much like you are in the terminal of your own machine. Basic syntax is as follows:</p>
+<pre><code>ssh user@remote_machine
+</code></pre><p>Where <code>remote_machine</code> can be an IP or hostname. There are many different things that can be done with SSH, too many for me to go into now. However one of the most useful is passwordless ssh. This allows you to connect to machines without supplying your password everytime. This can also be accomplished via some GUI utilities, however this may not work when you are already in a terminal or you wish to automate a task. Again, I&#39;ll not go into the details here. This <a href="http://www.linuxproblem.org/art_9.html">link</a> has a good example.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="connectivity-ping">Connectivity : <code>ping</code></h3>
+<p>If for some reason you can&#39;t connect to a machine over SSH then this is probably your next command. Although not definitive (some machines do not respond to ping) this should tell you whether there is a problem on the network or if the machine is down.</p>
+<pre><code>&gt; ping 10.119.18.150
+PING 10.119.18.150 (10.119.18.150) 56(84) bytes of data.
+64 bytes from 10.119.18.150: icmp_seq=1 ttl=64 time=0.056 ms
+64 bytes from 10.119.18.150: icmp_seq=2 ttl=64 time=0.099 ms
+64 bytes from 10.119.18.150: icmp_seq=3 ttl=64 time=0.086 ms
+</code></pre><p>If you see output like that above then you can connect to the machine and something else is wrong.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="connectivity-scp-secure-copy">Connectivity : <code>scp</code> - Secure Copy</h3>
+<p>This is a method for copying files from one machine to another. It uses the ssh protocol, so anything you can ssh to, you can scp to (and from). The syntax is similar to ssh, but it has files names in the command too. </p>
+<pre><code>&gt; scp michaelr@10.119.18.150:/tmp/CareBearStare /home/mrobinson/
+Password:
+CareBearStare
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="connectivity-telnet">Connectivity : <code>telnet</code></h3>
+<p>This is another tool that can be useful from time to time. It is normally used to actually connect to a remote terminal and execute commands. However more frequently now I use it to connect to a specific port on a machine to see if it&#39;s open. This can be useful to try the ssh port (22) or the http port (80) or various others depending on what you are doing. </p>
+<pre><code>&gt; telnet 10.119.18.150 22
+Trying 10.119.18.150...
+Connected to 10.119.18.150.
+Escape character is &#39;^]&#39;.
+SSH-2.0-OpenSSH_6.6.1
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="advanced-text-manipulation">Advanced text manipulation</h3>
+<h4 id="what-s-covered">What&#39;s covered</h4>
+<ul>
+<li>advanced <code>grep</code></li>
+<li><code>regex</code></li>
+<li><code>sed</code></li>
+<li><code>awk</code></li>
+<li><code>strings</code></li>
+<li><code>diff</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-grep">Advanced text manipulation : grep</h3>
+<p>I use grep every day in multiple different ways. There are loads of things you can do with it, I find these most useful:</p>
+<h4 id="search-the-output-of-the-last-command">Search the output of the last command</h4>
+<pre><code>&gt; cat quotes.txt | cut -c1-11 | grep -i WORK
+Work is the
+</code></pre><p>The <code>-i</code> makes it case insensitive.</p>
+<h4 id="search-a-file-for-the-given-string">Search a file for the given string</h4>
+<pre><code>&gt; grep -i WORK quotes.txt
+Work is the curse of the drinking classes
+</code></pre><h4 id="search-for-everything-that-doesn-t-match-the-given-string">Search for everything that doesn&#39;t match the given string</h4>
+<pre><code>&gt; grep -i -v WORK quotes.txt
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-grep">Advanced text manipulation : grep</h3>
+<h4 id="show-the-x-lines-after-the-matching-line">Show the X lines after the matching line</h4>
+<pre><code>&gt; grep -i -A 1 WORK quotes.txt
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre><h4 id="show-the-x-lines-before-the-matching-line">Show the X lines before the matching line</h4>
+<pre><code>&gt; grep -i -B 1 LOVE quotes.txt
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre><h4 id="search-for-multiple-strings">Search for multiple strings</h4>
+<pre><code>&gt; grep -i -e LOVE -e WORK quotes.txt
+Work is the curse of the drinking classes
+I love deadlines. I love the whooshing noise they make as they go by.
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-grep">Advanced text manipulation : grep</h3>
+<h4 id="search-recursively-this-is-really-handy">Search recursively - This is really handy</h4>
+<pre><code>&gt; mkdir test
+&gt; cp quotes.txt test/
+&gt; grep -i -r WORK .
+quotes.txt:Work is the curse of the drinking classes
+test/quotes.txt:Work is the curse of the drinking classes
+</code></pre><p>There are lots of other things it can do, and there&#39;s not much point in me going into all of them. Suffice to say, you can have a read at the man page or some web pages for other interesting uses for it.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-regex">Advanced text manipulation : Regex</h3>
+<p>A regular expression is a pattern that describes a set of strings. Regular expressions are constructed analogously to arithmetic expressions by using various operators to combine smaller expressions.</p>
+<p>The fundamental building blocks are the regular expressions that match a single character. Most characters, including all letters and digits, are regular expressions that match themselves. Any metacharacter with special meaning may be quoted by preceding it with a backslash.</p>
+<p>I could go into a whole day on this alone... These are the basics just so you are aware of what&#39;s possible. It would be a good idea to have a look about and see what else you can do knowing the type of thing that can be accomplised.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-40">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-regex-operators">Advanced text manipulation : Regex operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>Matches any single character.</td>
+</tr>
+<tr>
+<td>?</td>
+<td>The preceding item is optional and will be matched, at most, once.</td>
+</tr>
+<tr>
+<td>*</td>
+<td>The preceding item will be matched zero or more times.</td>
+</tr>
+<tr>
+<td>+</td>
+<td>The preceding item will be matched one or more times.</td>
+</tr>
+<tr>
+<td>{N}</td>
+<td>The preceding item is matched exactly N times.</td>
+</tr>
+<tr>
+<td>{N,}</td>
+<td>The preceding item is matched N or more times.</td>
+</tr>
+<tr>
+<td>{N,M}</td>
+<td>The preceding item is matched at least N times, but not more than M times.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>represents the range if it&#39;s not first or last in a list or the ending point of a range in a list.</td>
+</tr>
+<tr>
+<td>^</td>
+<td>Matches the empty string at the beginning of a line; also represents the characters not in the range of a list.</td>
+</tr>
+<tr>
+<td>$</td>
+<td>Matches the empty string at the end of a line.</td>
+</tr>
+</tbody>
+</table>
+<p>There&#39;s a better list <a href="http://www.rexegg.com/regex-quickstart.html">here</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-41">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-regex-examples">Advanced text manipulation : Regex - examples</h3>
+<h4 id="search-for-the-start-of-the-line-then-a-word">Search for the start of the line then a word</h4>
+<pre><code>&gt; grep ^root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+</code></pre><h4 id="search-for-a-word-and-the-end-of-the-line">Search for a word and the end of the line</h4>
+<pre><code>&gt; grep shutdown$ /etc/passwd
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+</code></pre><h4 id="search-for-a-range-of-characters">Search for a range of characters</h4>
+<pre><code>&gt; grep [yf] /etc/group
+sys:x:3:
+tty:x:5:
+mail:x:12:postfix,exim
+floppy:x:19:
+ftp:x:50:
+nobody:x:99:
+ssh_keys:x:999:
+systemd-journal:x:190:
+postfix:x:89:
+nfsnobody:x:65534:
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-42">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-regex-examples">Advanced text manipulation : Regex - examples</h3>
+<h4 id="this-lists-all-files-starting-with-a-b-c-q-x-y-or-z-">This lists all files starting with &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;,q&quot;,&quot;x&quot;, &quot;y&quot; or &quot;z&quot;.</h4>
+<pre><code>&gt; ls -ld [a-c,q,x-z]*
+-rw-rw-r--. 1 michaelr michaelr 1526 Oct 24  2014 boxes
+-rw-rw-r--. 1 michaelr michaelr  402 Mar 27 19:51 build_codes.log
+drwxrwxr-x. 6 michaelr michaelr 1024 Jun  8 15:21 builds
+-rwxrwxr-x. 1 michaelr michaelr 2691 Oct 24  2014 checkPorts_bak.py
+-rwxrwxrwx. 1 michaelr michaelr 3161 Oct 24  2014 checkPorts.py
+drwxrwxr-x. 2 michaelr michaelr   80 Mar 28  2014 cntlm
+-rwxrwxr-x. 1 michaelr michaelr  757 Jul 13 11:19 colour.sh
+-rw-rw-r--. 1 michaelr michaelr  112 Jul 13 11:48 quotes.txt
+</code></pre><h4 id="list-all-files-starting-with-an-upper-case-letter">List all files starting with an upper case letter</h4>
+<pre><code>&gt; ls -ld [[:upper:]]*
+-rw-rw-r--.  1 michaelr michaelr        0 Jul 14 10:29 CareBearStare
+drwx------. 14 michaelr michaelr     2048 Jul 15 13:23 Dropbox
+-rw-rw-r--.  1 michaelr michaelr  5674868 Oct 28  2014 Master_Field_Definitions.xml
+-rw-rw-r--.  1 michaelr michaelr 26097970 Sep 11  2013 RH5-x86-64_wombat_papaframework_2.17.261_lbt323_wapi40_xml.tgz
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-43">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-regex-summary">Advanced text manipulation : Regex - summary</h3>
+<p>Regular expressions are powerful tools for selecting particular lines from files or output. A lot of UNIX commands use regular expressions: vim, perl, the PostgreSQL database and so on. They can be made available in any language or application using external libraries, and they even found their way to non-UNIX systems. For instance, regular expressions are used in the Excell spreadsheet that comes with the MicroSoft Windows Office suite. In this chapter we got the feel of the grep command, which is indispensable in any UNIX environment.</p>
+<p>Note    </p>
+<p>The grep command can do much more than the few tasks we discussed here; we only used it as an example for regular expressions. The GNU grep version comes with plenty of documentation, which you are strongly advised to read!</p>
+<p>Bash has built-in features for matching patterns and can recognize character classes and ranges.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-sed">Advanced text manipulation : <code>sed</code></h3>
+<p>As with everything today, these will only be a short intro to the commands and the type of things they can do. Sed is a stream editor. That means usually you will be piping data into and or out of it. There are not that many main commands. The most used is the subsitution and will be the focus of the next few slides. </p>
+<p><em>Substitute a simple string</em></p>
+<pre><code>&gt; tail -1 quotes.txt | sed s/deadlines/jokes/                                                                           
+I love jokes. I love the whooshing noise they make as they go by.
+</code></pre><p><em>Substitute all matches of a simple string (global)</em></p>
+<pre><code>&gt; tail -1 quotes.txt | sed s/love/eat/
+I eat deadlines. I love the whooshing noise they make as they go by.
+&gt; tail -1 quotes.txt | sed s/love/eat/g
+I eat deadlines. I eat the whooshing noise they make as they go by.
+</code></pre><p><em>Substitute all regex matches</em></p>
+<pre><code>&gt; sed s/[abcdef]/X/g quotes.txt                                                                                         
+Work is thX XursX oX thX Xrinking XlXssXs
+I lovX XXXXlinXs. I lovX thX whooshing noisX thXy mXkX Xs thXy go Xy.
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-sed">Advanced text manipulation : <code>sed</code></h3>
+<p><em>The slash as a delimiter</em></p>
+<p>The character after the s is the delimiter. It is conventionally a slash, because this is what ed, more, and vi use. It can be anything you want, however. If you want to change a pathname that contains a slash - say /usr/local/bin to /common/bin - you could use the backslash to quote the slash:</p>
+<pre><code>&gt; ls -ld /usr/local/bin/ &gt; old
+drwxr-xr-x. 2 root root 4096 Jul 15 13:42 /usr/local/bin/
+&gt; sed &#39;s/\/usr\/local\/bin/\/common\/bin/&#39; old
+drwxr-xr-x. 2 root root 4096 Jul 15 13:42 /common/bin/
+</code></pre><p>Gulp. Some call this a &#39;Picket Fence&#39; and it&#39;s ugly. It is easier to read if you use an underline instead of a slash as a delimiter:</p>
+<pre><code>sed &#39;s_/usr/local/bin_/common/bin_&#39; old
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-awk">Advanced text manipulation : <code>awk</code></h3>
+<p>This can get VERY complicated as it&#39;s essentially a scripting language on to it&#39;s own. I don&#39;t intend to go in to any of that. Following are just a few examples of things it&#39;s useful for.</p>
+<p><em>Print the second field separated by white space</em></p>
+<pre><code>&gt; # awk by default will split using white space for fields
+&gt; awk &#39;{print $2}&#39; quotes.txt 
+is
+love
+</code></pre><p><em>Print the second field separated by a word</em></p>
+<pre><code>&gt; # awk by default will split using white space for fields* diff
+&gt; awk -F &#39;the&#39; &#39;{print $2}&#39; quotes.txt                                                                                  
+curse of 
+whooshing noise 
+
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-47">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-awk">Advanced text manipulation : <code>awk</code></h3>
+<p><em>Sum the input from another process</em></p>
+<pre><code>&gt; cat count.txt 
+1
+2
+3
+4
+5
+&gt; cat count.txt | awk &#39;{ sum+=$1} END {print sum}&#39;
+15
+</code></pre><p><em>Average the input from another process</em></p>
+<pre><code>&gt; cat count.txt 
+1
+2
+3
+4
+5
+&gt; cat count.txt | awk &#39;{ sum += $1 } END { if (NR &gt; 0) print sum / NR }&#39;
+3
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-48">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-strings">Advanced text manipulation : strings</h3>
+<p>There are not that many use cases for this command, the first here is an arbitrary example and the second one you might actually use.</p>
+<h4 id="arbitrary-example">Arbitrary example</h4>
+<pre><code>&gt; strings /lib64/ld-linux-x86-64.so.2 | grep version
+versions
+display version dependencies
+la_version
+ELF file ABI version invalid
+ (no version symbols)
+, version 
+unsupported version 
+weak version `
+version lookup error
+file you run.  This is mostly of use for maintainers to test new versions
+FATAL: cannot determine kernel version
+ELF file version does not match current one
+ELF file version ident does not match current one
+checking for version `%s&#39; in file %s [%lu] required by file %s [%lu]
+no version information available (required by 
+cannot allocate version reference table
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-49">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-strings">Advanced text manipulation : <code>strings</code></h3>
+<h4 id="useful-example">Useful example</h4>
+<pre><code>&gt;strings /usr/bin/strings | grep -- --
+  -a - --all                Scan the entire file, not just the data section [default]
+  -d --data                 Only scan the data sections in the file
+  -f --print-file-name      Print the name of the file before each string
+  -n --bytes=[number]       Locate &amp; print any NUL-terminated sequence of at
+  -t --radix={o,d,x}        Print the location of the string in base 8, 10 or 16
+  -w --include-all-whitespace Include all whitespace as valid string characters
+  -o                        An alias for --radix=o
+  -T --target=&lt;BFDNAME&gt;     Specify the binary file format
+  -e --encoding={s,S,b,l,B,L} Select character size and endianness:
+  -s --output-separator=&lt;string&gt; String used to separate strings in output.
+  -h --help                 Display this information
+  -v -V --version           Print the program&#39;s version number
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-50">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-diff">Advanced text manipulation : <code>diff</code></h3>
+<p>This shows you the differences between two files or directories. It has a lot of different options which you can look, here&#39;s basic usage however</p>
+<p> Let&#39;s say we have two files, file1.txt and file2.txt.</p>
+<p>If file1.txt contains the following four lines of text:</p>
+<pre><code>I need to buy apples.
+I need to run the laundry.
+I need to wash the dog.
+I need to get the car detailed.
+</code></pre><p>...and file2.txt contains these four lines:</p>
+<pre><code>I need to buy apples.
+I need to do the laundry.
+I need to wash the car.
+I need to get the dog detailed.
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-51">
+    <section class="slide-content"><h3 id="advanced-text-manipulation-diff">Advanced text manipulation : <code>diff</code></h3>
+<p>...then we can use diff to automatically display for us which lines differ between the two files with this command:</p>
+<pre><code>diff file1.txt file2.txt
+</code></pre><p>...and the output will be:</p>
+<pre><code class="lang-diff"> 2,4c2,4
+ &lt; I need to run the laundry.
+ &lt; I need to wash the dog.
+ &lt; I need to get the car detailed.
+ ---
+ &gt; I need to do the laundry.
+ &gt; I need to wash the car.
+ &gt; I need to get the dog detailed.
+</code></pre>
+<p><em>vimdiff is nicer...</em></p>
+<p><code>vimdiff file1.txt file2.txt</code></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-52">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files">Advanced Dir, paths and files</h3>
+<h4 id="what-s-covered">What&#39;s covered</h4>
+<ul>
+<li><code>which</code></li>
+<li><code>find</code></li>
+<li><code>locate / updatedb</code></li>
+<li><code>permissions</code></li>
+<li><code>chown</code></li>
+<li><code>chmod</code></li>
+<li><code>unzip</code></li>
+<li><code>gzip</code></li>
+<li><code>tar</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-53">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-which">Advanced Dir, paths and files : <code>which</code></h3>
+<p>This command basically tells you the full path of the file that you pass to it. This may not seem useful, but sometimes you may have many different binaries in a test or dev environment. Especially if you are sourcing wombat.profile or similar to setup your <code>$PATH</code> variable. Running  <code>which bash</code> in this case would tell you exactly which one you are executing. </p>
+<pre><code>&gt; which bash
+/usr/bin/bash
+</code></pre><p>Another sometimes useful case is when using virtual environments in python. You can make sure that the python version you are executing your program with is the one you expect. </p>
+<pre><code>&gt; which python
+/usr/bin/python
+&gt; source virtual_envs/venv/bin/activate                                                                            
+&gt; which python
+~/virtual_envs/venv/bin/python
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-54">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-find">Advanced Dir, paths and files : <code>find</code></h3>
+<p>The clue is in the name. It will search directories recursively to find files that you have specified via filename regex and other means. There are many powerful features in this tool, so it&#39;s worth having a look at the man pages. Here are a few examples I use frequently</p>
+<h4 id="find-a-file-underneath-the-current-directory-with-the-given-file-name-regex-">Find a file underneath the current directory with the given file name (regex)</h4>
+<pre><code>&gt; find . -name &quot;*quo*&quot;
+</code></pre><p>A useful additonal note around that is you can make it <strong>ignore case</strong> by using <code>-iname</code> instead of name.
+If you remember from before the <code>.</code> is used to represent the current working directory. The command could also be written as </p>
+<pre><code>&gt; find /home/michaelr -name &quot;*quo*&quot;
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-55">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-find-mindepth-maxdepth">Advanced Dir, paths and files : <code>find</code> - mindepth / maxdepth</h3>
+<p>While not immediately appparent why these would be useful, there are often cases where they are needed. Supplying maxdepth 1 in the previous example for instance would only search the current working directory:</p>
+<pre><code>&gt; find . -name \*md | head
+./bash-scripting/bash_scripting_intro.md
+./bash-scripting/README.md
+./python/06-testing/testing_example/.pytest_cache/README.md
+./python/README.md
+./python/python_exercises/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/rubberband/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/scroll_down/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/hinterland/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/snippets/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/toggle_all_line_numbers/readme.md
+</code></pre><pre><code>&gt; find . -mindepth 9 -name \*md | head
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/rubberband/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/scroll_down/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/hinterland/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/snippets/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/toggle_all_line_numbers/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/notify/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/runtools/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/tree-filter/readme.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/table_beautifier/README.md
+./python/venv/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/freeze/readme.md
+</code></pre><p>Notice how each time a regex is used, this is because find expects the parameter to name to be the exact match of the file you are looking for.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-56">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-find-mtime">Advanced Dir, paths and files : find - <code>mtime</code></h3>
+<p>There are several different times that can be used for file matching. This one is the modify time, i.e. the last time the file changed. This is the most commonly used. This command can be useful to find out which file it was you were modifying today and have forgotten about, or to find old files that could maybe be removed to clear up space on a disk. </p>
+<h4 id="all-files-in-the-current-directory-that-have-been-modified-today">All files in the current directory that have been modified today</h4>
+<pre><code>&gt; find . -maxdepth 1 -mtime -1                                                                                          
+.
+./.bash_history
+./old
+./.Xauthority
+./test
+./.vim
+./.viminfo
+./.cache
+./.vimrc
+./.bashrc
+./quotes.txt
+./count.txt
+./pika
+./test.tar.gz
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-57">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-find-exec">Advanced Dir, paths and files : find - <code>exec</code></h3>
+<p>This is where things get interesting. The exec parameter will allow you to execute a command on every match that it finds. So for example, if we wanted to find every file that was in the /etc directory, that had conf in the title and then print the first line of that file. We could do this:</p>
+<pre><code>&gt; find /etc -iname &quot;*conf*&quot; -exec head -1 {} \;
+#
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot;?&gt;
+</code></pre><p>The <code>{}</code> in the example will be replaced by the file name. One important thing to note here is that you <strong>must</strong> have a space between the <code>{}</code> and the <code>\;</code> otherwise you will see this error:</p>
+<pre><code>&gt; find /etc -iname &quot;*conf*&quot; -exec head -1 {}\;                                                                          
+
+find: missing argument to `-exec&#39;
+</code></pre><p>As I mentioned, there are many other uses for find and you can have a look at the help for more examples.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-58">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-locate">Advanced Dir, paths and files : <code>locate</code></h3>
+<p>This is another very useful tool that will find files on a disk. However, unlike find, it will search the entire disk by default. However, there&#39;s a catch. It comes along with another tool called updatedb. </p>
+<p>The updatedb tool is the one that actually finds the files on the disk and allows locate to tell you where they are. </p>
+<p>So, normally not an issue, just run updatedb and then you can view the files. Well updatedb requires root permissions to run, so unless you have root or sudo on the box then the information you will get back from locate could be out of date. However, it&#39;s still worth a try as it&#39;s much faster than find if you just want to know the location of a file. </p>
+<pre><code>&gt; locate OfFun
+/var/userspace/autobuild/WelcomeToTheHouseOfFun
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-59">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-permissions">Advanced Dir, paths and files : permissions</h3>
+<pre><code>&gt; ls -l
+total 270048
+-rw-rw-r--.  1 michaelr michaelr     18667 Jan 23 10:01 1
+drwxrwxr-x.  5 michaelr michaelr      1024 Feb 25  2014 217-trunk
+-rw-rw-r--.  1 michaelr michaelr      1526 Oct 24  2014 boxes
+-rw-rw-r--.  1 michaelr michaelr       402 Mar 27 19:51 build_codes.log
+drwxrwxr-x.  6 michaelr michaelr      1024 Jun  8 15:21 builds
+-rw-rw-r--.  1 michaelr michaelr         0 Jul 14 10:29 CareBearStare
+</code></pre><p>These are who has access to files and what access they have. </p>
+<p>You can see the permissions on files by using <code>ls -l</code>. You can see the user who owns the file <code>michaelr</code> and the group <code>michaelr</code> that the file belongs to.  </p>
+<p>The first column is the permissions for each user and group (see next slide)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-60">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-permissions">Advanced Dir, paths and files : permissions</h3>
+<pre><code>&gt; ls -l
+total 270048
+-rw-rw-r--.  1 michaelr michaelr     18667 Jan 23 10:01 1
+drwxrwxr-x.  5 michaelr michaelr      1024 Feb 25  2014 217-trunk
+-rw-rw-r--.  1 michaelr michaelr      1526 Oct 24  2014 boxes
+-rw-rw-r--.  1 michaelr michaelr       402 Mar 27 19:51 build_codes.log
+drwxrwxr-x.  6 michaelr michaelr      1024 Jun  8 15:21 builds
+-rw-rw-r--.  1 michaelr michaelr         0 Jul 14 10:29 CareBearStare
+</code></pre><p>The first block of data is made up of 10 characters. They&#39;re broken down like so:</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>File type (There lots, the most common are &quot;d&quot; directory, &quot;l&quot; symbolic link and &quot;-&quot; regular file)</td>
+</tr>
+<tr>
+<td>2-4</td>
+<td>Permissions for the <strong>owner</strong> of the file</td>
+</tr>
+<tr>
+<td>5-7</td>
+<td>Permissions for people in the same <strong>group</strong> as the file</td>
+</tr>
+<tr>
+<td>8-10</td>
+<td>Permissions of <strong>other</strong> people (not the owner or group</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>read</td>
+</tr>
+<tr>
+<td>w</td>
+<td>write</td>
+</tr>
+<tr>
+<td>x</td>
+<td>execute</td>
+</tr>
+</tbody>
+</table>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-61">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-permissions">Advanced Dir, paths and files : permissions</h3>
+<h4 id="chmod"><code>chmod</code></h4>
+<p>This allows you to change the permissions on a file allowing others to read / write / excute. There are two ways to specify the permissions. I like this way</p>
+<pre><code>&gt; ls -l quotes.txt                                                                                                      
+-rw-rw-r--. 1 michaelr michaelr 112 Jul 13 11:48 quotes.txt
+&gt; chmod ugo+x quotes.txt                                                                                                
+&gt; ls -l quotes.txt                                                                                                      
+-rwxrwxr-x. 1 michaelr michaelr 112 Jul 13 11:48 quotes.txt
+</code></pre><table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u</td>
+<td>user</td>
+</tr>
+<tr>
+<td>g</td>
+<td>group</td>
+</tr>
+<tr>
+<td>o</td>
+<td>other</td>
+</tr>
+</tbody>
+</table>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-62">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-permissions">Advanced Dir, paths and files : permissions</h3>
+<h4 id="chmod"><code>chmod</code></h4>
+<p>Lots of people use this way</p>
+<pre><code>&gt; chmod 600 quotes.txt
+&gt; ls -l quotes.txt                                                                                                      
+-rw-------. 1 michaelr michaelr 112 Jul 13 11:48 quotes.txt
+</code></pre><p>The second uses a bit mask, which is explained <a href="http://www.cyberciti.biz/faq/unix-linux-bsd-chmod-numeric-permissions-notation-command/">here</a> if you&#39;re interested in using it. </p>
+<h4 id="chown"><code>chown</code></h4>
+<p>This will change the owner of a file. In most cases you probably don&#39;t want to do this. Normally you just want to allow others to read the file, not own it.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-63">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-zips">Advanced Dir, paths and files : zips</h3>
+<h4 id="unzip"><code>unzip</code></h4>
+<p>This will unzip a file that comes in the standard windows format, files that end in <code>.zip</code> for example. You can zip files as well, but just use gzip or tar with gzip instead. 
+Zipping is basically a method for compressing files. This means they take up less disk space and should be easier to upload to places, leave more free space for others to use and take less time to copy place to place. </p>
+<pre><code>&gt; unzip file.zip -d destination_folder
+</code></pre><h4 id="gzip"><code>gzip</code></h4>
+<p>This is more widely used on linux and files generally come with the extension <code>.gz</code>. </p>
+<pre><code># To zip up a file
+&gt; gzip quotes.txt
+
+# Original replace by the zipped version
+&gt; ls -l quotes*
+
+# To unzip a file
+&gt; gunzip quotes.txt.gz
+
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-64">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-tar">Advanced Dir, paths and files : <code>tar</code></h3>
+<p>This command does a few things. By itself (without compression) it will add all the given files to one large file (called a tarball). The first variable after the options is the file to create <strong><em>Make sure you add this or you&#39;ll overwrite a file</em></strong>.
+The options do [c]reate, [v]erbose, [f]ilename</p>
+<h4 id="create-a-new-tarball">create a new tarball</h4>
+<pre><code>&gt; tar cvf test.tar quotes.txt test/
+quotes.txt
+test/
+test/quotes.txt
+</code></pre><h4 id="view-what-s-in-the-tarball">view what&#39;s in the tarball</h4>
+<pre><code>&gt; tar tvf test.tar 
+-rw-rw-r-- michaelr/michaelr 112 2015-07-16 11:51 quotes.txt
+drwxrwxr-x michaelr/michaelr   0 2015-07-16 11:51 test/
+-rw-rw-r-- michaelr/michaelr 112 2015-07-15 20:20 test/quotes.txt
+</code></pre><h4 id="extract-from-a-tarball">extract from a tarball</h4>
+<pre><code>&gt; tar xvf test.tar                                                                                                      
+quotes.txt
+test/
+test/quotes.txt
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-65">
+    <section class="slide-content"><h3 id="advanced-dir-paths-and-files-tar">Advanced Dir, paths and files : <code>tar</code></h3>
+<p>That in itself is quite useful. If you are copying a lot of small files across the network, especially via SCP or FTP, it can take a long time to look up each individual file on the disk. So by using tar, it will only have to do one lookup, increasing your transfer rate. This will become immediately obvious if you are transferring a lot of source files. </p>
+<p>Though, it becomes a lot more useful when you combine it with a zip function. You can do this after you have created the tar if you wish, though tar has functionality built in for this. </p>
+<pre><code>&gt; tar zcvf test.tgz quotes.txt test/                                                                                    
+quotes.txt
+test/
+test/quotes.txt
+
+</code></pre><p>Files created with this normally use the extension <code>.tgz</code> or <code>.tar.gz</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-66">
+    <section class="slide-content"><h3 id="process-user-control-information-why-">Process / user control / information - Why?</h3>
+<p>The reason for knowing what other users is doing is mainly to stop them doing it! Well, not always, but it&#39;s useful. If you have information about who is logging into the machine and doing what then you can maybe track down what problems you are seeing. </p>
+<p>Remember that a lot of the machines that you&#39;ll be using are also being used by multiple other people at the same time. So it&#39;s easy for someone to use up all the disk space, or hog a CPU running their applications running at full rate. </p>
+<p>These commands should help in finding some of that out.</p>
+</section>
+  </div>
+  <div class="slide hidden  " id="slide-67">
+    <section class="slide-content"><h3 id="process-user-control-information-what-">Process / user control / information - What?</h3>
+<h4 id="what-s-covered">What&#39;s covered</h4>
+<ul>
+<li><code>last</code></li>
+<li><code>whoami</code> / <code>id</code></li>
+<li><code>who</code></li>
+<li><code>top</code></li>
+<li><code>ps</code></li>
+<li><code>kill</code></li>
+<li><code>pkill</code></li>
+<li><code>fg</code></li>
+<li><code>bg</code></li>
+<li>Ctrl-z</li>
+<li>Ctrl-c</li>
+<li><code>jobs</code></li>
+<li><code>kill %1</code></li>
+<li><code>sudo</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-68">
+    <section class="slide-content"><h3 id="process-user-control-information-last">Process / user control / information - <code>last</code></h3>
+<p>Usually combined with <code>head</code> because the output is quite large, <code>last</code> will show you the last time users logged on to the box. </p>
+<pre><code>&gt; last | head
+paul pts/52       10.193.2.37      Thu Jul 16 09:24   still logged in   
+paul pts/101      10.193.2.37      Thu Jul 16 09:18   still logged in   
+lloyd pts/100      10.193.2.10      Thu Jul 16 09:18   still logged in   
+david  pts/99       10.193.2.128     Thu Jul 16 09:18   still logged in   
+paul pts/98       10.193.2.37      Thu Jul 16 09:17   still logged in   
+paul pts/97       10.193.2.37      Thu Jul 16 09:08 - 09:35  (00:26)    
+thomas pts/94       10.193.2.176     Thu Jul 16 09:07   still logged in   
+glenn pts/63       10.193.2.180     Thu Jul 16 08:57   still logged in   
+sarah  pts/29       10.193.2.186     Thu Jul 16 08:14 - 09:51  (01:37)    
+michaelr pts/36       10.193.2.14      Wed Jul 15 20:03   still logged in   
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-69">
+    <section class="slide-content"><h3 id="process-user-control-information-whoami-id">Process / user control / information - <code>whoami</code> / <code>id</code></h3>
+<p><code>whoami</code> will simply print out the username that you are logged in as. id will give similar information, just more. It can also be used to query other users on the system. This is useful to find out what groups you are part of. 
+Although most of the time you clearly know which user you are logged in as, sometimes you are using a shared user or you have sudo-ed to root. </p>
+<pre><code>&gt; whoami 
+michaelr
+&gt; id
+uid=947(michaelr) gid=800(michaelr) groups=800(michaelr),807(es),810(swx),812(builders),818(AX-build)
+&gt; id bob
+uid=123(bob) gid=1899495625937(domain^users) groups=1899446795937(domain^users)
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-70">
+    <section class="slide-content"><h3 id="process-user-control-information-who-w">Process / user control / information - <code>who</code> / <code>w</code></h3>
+<p>This will tell you who is currently logged into the system (and for w, what they are doing). This is useful if you&#39;re on a machine and want to make sure that you are not going to ruin anyone else&#39;s day by using all the CPU / Memory / whatever for yourself. </p>
+<p>Or, if someone is already ruining your day...</p>
+<p>The default options for w give more information than who, but who has more options that can be configured. </p>
+<pre><code>&gt; w
+ 10:34:44 up 22 days, 16:30, 13 users,  load average: 0.00, 0.02, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     tty1                      24Jun15 22days  0.04s  0.04s -bash
+mmulhern pts/29   10.193.3.101     10:29   20.00s  0.08s  0.08s -bash
+paul pts/52   10.193.2.37      09:24   55:32   0.03s  0.03s -bash
+glenn pts/63   10.193.2.180     08:57   52:12   0.04s  0.00s tmux
+lloyd pts/78   10.193.3.98      10:29    2:12   0.03s  0.03s -bash
+michaelr pts/35   10.193.2.14      Wed20    4.00s  0.03s  0.01s tmux a
+michaelr pts/36   10.193.2.14      Wed20   14:30m  0.02s  0.02s -bash
+thomas pts/94   10.193.2.176     09:07    1:11m  0.01s  0.00s tmux a
+lloyd pts/147  10.193.2.10      Wed11   17:17m  0.54s  0.17s vim cccccc
+paul pts/98   10.193.2.37      09:17   55:24   0.03s  0.03s -bash
+david  pts/99   10.193.2.128     09:18   43:32   0.11s  0.11s -bash
+lloyd pts/100  10.193.2.10      09:18   53:24   0.12s  0.12s -bash
+paul pts/101  10.193.2.37      09:18   55:32   0.59s  0.57s vim -p .py common.py 
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-71">
+    <section class="slide-content"><h3 id="process-user-control-information-who-w">Process / user control / information - <code>who</code> / <code>w</code></h3>
+<pre><code>&gt; who
+root     tty1         2015-06-24 08:44
+mmulhern pts/29       2015-07-16 10:29 (10.193.3.101)
+paul pts/52       2015-07-16 09:24 (10.193.2.37)
+glennont pts/63       2015-07-16 08:57 (10.193.2.180)
+lloydar pts/78       2015-07-16 10:29 (10.193.3.98)
+michaelr pts/35       2015-07-15 20:02 (10.193.2.14)
+michaelr pts/36       2015-07-15 20:03 (10.193.2.14)
+tom pts/94       2015-07-16 09:07 (10.193.2.176)
+lloydar pts/147      2015-07-15 11:48 (10.193.2.10)
+paul pts/98       2015-07-16 09:17 (10.193.2.37)
+david  pts/99       2015-07-16 09:18 (10.193.2.128)
+lloydar pts/100      2015-07-16 09:18 (10.193.2.10)
+paul pts/101      2015-07-16 09:18 (10.193.2.37)
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-72">
+    <section class="slide-content"><h3 id="process-user-control-information-top">Process / user control / information - <code>top</code></h3>
+<p>Another useful one to see who or what is using all the resources on the machine. </p>
+<pre><code>&gt; top
+top - 10:36:35 up 22 days, 16:32, 13 users,  load average: 0.00, 0.01, 0.05
+Tasks: 388 total,   1 running, 385 sleeping,   2 stopped,   0 zombie
+%Cpu(s):  0.9 us,  0.2 sy,  0.0 ni, 98.6 id,  0.1 wa,  0.0 hi,  0.0 si,  0.2 st
+KiB Mem :  3881168 total,   585060 free,  1253436 used,  2042672 buff/cache
+KiB Swap:  4095996 total,  3637504 free,   458492 used.  2269420 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+ 2154 michaelr  20   0  144208   3224   2028 R   5.6  0.1   0:00.01 top
+    1 root      20   0  141660   5440   2848 S   0.0  0.1   0:29.40 systemd
+    2 root      20   0       0      0      0 S   0.0  0.0   0:00.18 kthreadd
+    3 root      20   0       0      0      0 S   0.0  0.0   1:20.05 ksoftirqd/0
+    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H
+    7 root      rt   0       0      0      0 S   0.0  0.0   0:06.01 migration/0
+    8 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcu_bh
+    9 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcuob/0
+</code></pre><p>There are a lot of switches on command line, but I normally just use the ones in the interface. Press <code>?</code> to see them. Some of the more useful ones are </p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M</td>
+<td>Sort by memory usage</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Show threads</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Show forest view</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Show all CPU stats</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>Sort by the column left of this one</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>Sort by the column right of this one</td>
+</tr>
+</tbody>
+</table>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-73">
+    <section class="slide-content"><h3 id="process-user-control-information-ps">Process / user control / information - <code>ps</code></h3>
+<p>Everyone has their own way to run this command. Basically it gives information on processes running on the system. Normally I&#39;m running this to get the PID to kill a program or to check that something is actually running, or if it&#39;s still running. </p>
+<p>Much of this information is similar to that of top, this however will show more than just the top X processes running.</p>
+<p>I use these flags <code>-ef</code> Check the man / help pages for others.</p>
+<pre><code>&gt; ps -ef | tail
+mrobins+  1866  1694  0 07:43 ?        00:00:00 [hp-upgrade] &lt;defunct&gt;
+mrobins+  1868  1695  0 07:43 ?        00:00:00 st
+mrobins+  1869  1868  0 07:43 pts/1    00:00:00 /bin/bash
+mrobins+  2126  1869  0 07:45 pts/1    00:00:00 tmux
+mrobins+  2128     1  0 07:45 ?        00:00:00 tmux
+mrobins+  2129  2128  0 07:45 pts/0    00:00:00 -bash
+mrobins+  2175  2128  0 07:45 pts/2    00:00:00 -bash
+mrobins+  2240  2129  0 07:46 pts/0    00:00:00 vim basics.md
+mrobins+  2323  2175  0 07:48 pts/2    00:00:00 ps -ef
+mrobins+  2324  2175  0 07:48 pts/2    00:00:00 tail
+</code></pre></section>
+  </div>
+  <div class="slide hidden" id="slide-74">
+    <section class="slide-content"><h3 id="process-user-control-information-kill">Process / user control / information - <code>kill</code></h3>
+<p>This is used to kill a user. It spins their hard disk fast enough to set fire to the machine and burn their house to the ground. </p>
+<p><em>editor&#39;s note: apologies for the bad humor</em></p>
+<p>In reality it kills processes. You need to give it a PID to do that, which you can get from the last command <code>ps</code> that we ran.</p>
+<pre><code>&gt; ps -ef | grep top
+mrobins+  1524  1512  0 07:43 ?        00:00:00 xfdesktop --display :0.0 --sm-client-id 240340fb0-eaab-43e2-9268-c142a097170e
+mrobins+  2413  2175  0 07:52 pts/2    00:00:00 top
+mrobins+  2415  2367  0 07:52 pts/3    00:00:00 grep --color=auto top
+:) Fri Jul 17 07:52:54 mrobinson@localhost:~/Dropbox/source/work/training/linux/basics (2 files, 62k total)(0)
+&gt;
+:) Fri Jul 17 07:52:59 mrobinson@localhost:~/Dropbox/source/work/training/linux/basics (2 files, 62k total)(0)
+&gt; kill 2413
+:) Fri Jul 17 07:53:09 mrobinson@localhost:~/Dropbox/source/work/training/linux/basics (2 files, 62k total)(0)
+&gt; ps -ef | grep top
+mrobins+  1524  1512  0 07:43 ?        00:00:00 xfdesktop --display :0.0 --sm-client-id 240340fb0-eaab-43e2-9268-c142a097170e
+mrobins+  2457  2367  0 07:53 pts/3    00:00:00 grep --color=auto top
+</code></pre><h3 id="process-user-control-information-pkill">Process / user control / information - <code>pkill</code></h3>
+<p>Also used to kill processes, though for this you only need to supply the name of the program you wish to kill. For this reason however you should be careful. It will try to kill <strong>any</strong> process that has the supplied argument in it&#39;s name.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-75">
+    <section class="slide-content"><h3 id="process-user-control-information-signals">Process / user control / information - signals</h3>
+<p>So, if you&#39;ve already heard of signals, great. I&#39;m not going to go into a lot of detail on them. Suffice to say, if a process won&#39;t die with a normal kill command (which by default sends a 15 signal), then you can try to send <code>kill -9</code> or <code>pkill -9</code>.</p>
+<p>The main reason I wrote this part is because you shouldn&#39;t just send a <code>kill -9</code> as your default / go to behaviour. I see a lot of people doing this and it&#39;s bad practice. The reason being most of the time the process doesn&#39;t clean up. This can lead to unexpected / unwanted behaviour. So only use -9 if a normal kill doesn&#39;t work.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-76">
+    <section class="slide-content"><h3 id="process-user-control-information-ctrl-c">Process / user control / information - Ctrl-c</h3>
+<p>These are actually signals too. You may have used this already. If a program is running you can use the key combination <code>Ctrl-c</code> to stop it running. If this doesn&#39;t work, you can kill it with the method mentioned previously. This is just handier as you&#39;re normally in the same terminal as the program.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-77">
+    <section class="slide-content"><h3 id="process-user-control-information-ctrl-z">Process / user control / information - Ctrl-z</h3>
+<p>This is another signal, and is useful for a number of reasons, my main use case is actually whin I&#39;m inside vim. It will stop the process but not kill it. So it&#39;s in a kind of paused state. It&#39;s handy in vim becuase it will drop you to a bash prompt where you can execute the thing you are writing in vim for example. </p>
+<p>You could just <code>:wq</code> to write quit in vim, but this is quicker for getting a prompt and reloading vim and more importantly you don&#39;t loose the current state that vim is in. Meaning you still have your full undo history, split panes, tabs, whatever else you have opened.</p>
+<p>To get the program back you need to use the <code>fg</code> (as in [f]ore[g]round) command.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-78">
+    <section class="slide-content"><h3 id="process-user-control-information-bg-fg">Process / user control / information - <code>bg</code> / <code>fg</code></h3>
+<p>Normally used in conjuction with the last command (Ctrl-z), <code>bg</code> will put the task that you were running (and paused) into the background. This means that it will start to run again, but this will happnen in the background. </p>
+<p>It will still output to stdout, so you might not always want to use this as can make your terminal confusing. Though it is useful if you&#39;ve kicked off something that&#39;s logging to file and you know is going to take a while. </p>
+<p>You can get the same behaviour using the <code>&amp;</code> character at the end of a command. </p>
+<p>Running <code>fg</code> is what you use to bring the last job that you backgrounded. This is also true for commands that you used Ctrl-z to pause.</p>
+<h3 id="process-user-control-information-jobs">Process / user control / information - <code>jobs</code></h3>
+<p>This command will be useful with the previous</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-79">
+    <section class="slide-content"><h3 id="process-user-control-information-sudo">Process / user control / information - <code>sudo</code></h3>
+<p>As hinted at beofore, <code>sudo</code> is used to escalate your permissions.</p>
+<p>Because it allows you to do things which are possibly dangerous, we&#39;re not going to cover it here, but it&#39;s good to understand what it&#39;s for, even if you&#39;re not going to use it!</p>
+<pre><code>&gt;head /var/log/hessages
+head: cannot open &#39;/var/log/hessages&#39; for reading: No such file or directory
+&gt;sudo head /var/log/messages
+[sudo] password for matt:
+Oct  6 03:11:02 hex rsyslogd[16650]: [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1907.0&quot; x-pid=&quot;16650&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Oct  6 03:11:03 hex audit[32246]: AVC avc:  denied  { connectto } for  pid=32246 comm=&quot;docker-gen&quot; path=&quot;/run/Oct  6 03:11:03 hex audit[17907]: VIRT_CONTROL pid=17907 uid=0 auid=4294967295 ses=4294967295 Oct  6 03:11:07 hex audit[646]: AVC avc:  denied  { open } for  pid=646 comm=54687265616420506F6F6C20576F72 path=&quot;/config/logs/sonarr.trace.txt&quot; dev=&quot;dm-0&quot; ino=2097228 scontext=system_u:system_r:container_t:s0:c117,c671 tcontext=system_u:object_r:default_t:s0 tclass=file permissive=1
+</code></pre></section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-80">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Michael Robinson</h1>
+    <h3 class="email">
+      <a href="mailto:laxdog@gmail.com">laxdog@gmail.com</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPosition());
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+  </script>
+</body>
+</html>
